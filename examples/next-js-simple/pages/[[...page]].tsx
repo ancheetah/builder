@@ -3,6 +3,7 @@ import { useRouter } from 'next/router'
 import { BuilderComponent, Builder, builder } from '@builder.io/react'
 import DefaultErrorPage from 'next/error'
 import Head from 'next/head'
+import "../components/Heading";
 
 const BUILDER_API_KEY = '492b9fb8f843430fba67137f1f8ec68d'
 builder.init(BUILDER_API_KEY)
