@@ -4,7 +4,7 @@ import { BuilderComponent, Builder, builder } from '@builder.io/react'
 import DefaultErrorPage from 'next/error'
 import Head from 'next/head'
 
-const BUILDER_API_KEY = 'PUT YOUR API KEY HERE'
+const BUILDER_API_KEY = '492b9fb8f843430fba67137f1f8ec68d'
 builder.init(BUILDER_API_KEY)
 
 // tells you what paths are being built
