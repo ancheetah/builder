@@ -5,7 +5,7 @@ import DefaultErrorPage from 'next/error'
 import Head from 'next/head'
 import "../components/Heading";
 
-const BUILDER_API_KEY = '492b9fb8f843430fba67137f1f8ec68d'
+const BUILDER_API_KEY = '42aedc5d7c084408b4c99cbd0f9a9e09'
 builder.init(BUILDER_API_KEY)
 
 // tells you what paths are being built
@@ -15,6 +15,7 @@ export async function getStaticProps({
   const page =
     (await builder
       .get('page', {
+        cachebust: true,
         userAttributes: {
           urlPath: '/' + (params?.page?.join('/') || ''),
         },
