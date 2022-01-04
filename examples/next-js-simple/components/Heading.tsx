@@ -1,7 +1,15 @@
 import { Builder } from "@builder.io/react";
 import React from 'react';
 
-export const Heading = (props: { color: any; title: boolean | React.ReactChild | React.ReactFragment | React.ReactPortal | null | undefined; }) => <h1 style={{ color: props.color }}>{props.title}</h1>;
+export const Heading = (props: { image: string; title: string; }) => {
+console.log(props.image);
+return(
+<div style={{'width': '50vw'}}>
+  <h1>{props.image}</h1>
+  <img src={props.image} width='100'></img>
+</div>
+)
+}
 
 Builder.registerComponent(Heading, {
   name: "Heading",
@@ -12,9 +20,9 @@ Builder.registerComponent(Heading, {
       defaultValue: 'I am a heading!'
     },
     {
-      name: "color",
-      type: "color",
-      defaultValue: 'black'
+      name: "image",
+      type: "file",
+      allowedFileTypes: ['png', 'jpeg']
     },
   ],
 });

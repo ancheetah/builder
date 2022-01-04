@@ -3,6 +3,7 @@ import { useRouter } from 'next/router'
 import { BuilderComponent, Builder, builder } from '@builder.io/react'
 import DefaultErrorPage from 'next/error'
 import Head from 'next/head'
+import "../components/SvgComponent";
 import "../components/Heading";
 
 const BUILDER_API_KEY = '42aedc5d7c084408b4c99cbd0f9a9e09'

@@ -1,9 +1,10 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import { Switch, Route, BrowserRouter, Link } from 'react-router-dom';
-import { BuilderComponent } from '@builder.io/react';
+import React, { useEffect, useState } from "react";
+import ReactDOM from "react-dom";
+import { Switch, Route, BrowserRouter, Link } from "react-router-dom";
+import { BuilderComponent, builder, Builder } from "@builder.io/react";
+import "./index.css";
 
-import './index.css';
+builder.init("c455715576fb431197c98220f902367e");
 
 function App() {
   return (
@@ -32,38 +33,59 @@ function App() {
         <Switch>
           <Route path="/" exact component={Home} />
           <Route path="/about" exact component={About} />
-          <Route render={({ location }) => <CatchallPage key={location.key} />} />
+          <Route
+            render={({ location }) => <CatchallPage key={location.key} />}
+          />
         </Switch>
       </div>
     </BrowserRouter>
   );
 }
 
-class CatchallPage extends React.Component {
-  state = { notFound: false };
+export const CatchallPage = ({ page = "page", url = "home" }) => {
+  const [pageJSON, setPage] = useState(null);
+  const [loading, setLoading] = useState(false);
+  const isEditingOrPreviewing = Builder.isEditing || Builder.isPreviewing;
 
-  render() {
-    return !this.state.notFound ? (
-      <BuilderComponent
-        apiKey="bb209db71e62412dbe0114bdae18fd15"
-        model="page"
-        contentLoaded={content => {
-          if (!content) {
-            this.setState({ notFound: true });
-          }
-        }}
-      >
-        <div className="loading">Loading...</div>
-      </BuilderComponent>
-    ) : (
-      <NotFound /> // Your 404 content
-    );
+  useEffect(() => {
+    async function fetchPage() {
+      setLoading(true);
+      builder
+        .get(page, { url: "/" + url })
+        .promise()
+        .then(setPage);
+
+      setLoading(false);
+    }
+    if (!isEditingOrPreviewing) {
+      fetchPage();
+    }
+  }, []);
+
+  if (loading) {
+    return <h1>Loading</h1>;
   }
-}
+  if (!pageJSON && !isEditingOrPreviewing) {
+    return <NotFound />;
+  }
+  return <BuilderComponent model="page" content={pageJSON} />;
+};
+
+const Heading = (props) => <h1>{props.title}</h1>;
+
+Builder.registerComponent(Heading, {
+  name: "Heading",
+  inputs: [
+    {
+      name: "title",
+      type: "text"
+    }
+  ]
+});
 
 const Home = () => <h1>I am the homepage!</h1>;
 const About = () => <h1>I am the about page!</h1>;
 const NotFound = () => <h1>No page found for this URL, did you publish it?</h1>;
 
-const rootElement = document.getElementById('root');
+const rootElement = document.getElementById("root");
 ReactDOM.render(<App />, rootElement);
