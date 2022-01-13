@@ -6,7 +6,7 @@ import Head from 'next/head'
 import "../components/SvgComponent";
 import "../components/Heading";
 
-const BUILDER_API_KEY = '492b9fb8f843430fba67137f1f8ec68d'
+const BUILDER_API_KEY = '79c606108cdf4936815f4736565ac6ee'
 builder.init(BUILDER_API_KEY)
 
 Builder.register('insertMenu', {
@@ -21,17 +21,13 @@ Builder.register('insertMenu', {
 export async function getStaticProps({
   params,
 }: GetStaticPropsContext<{ page: string[] }>) {
+  // builder.setUserAttributes({ locale: 'en-US'});
   const page =
     (await builder
-      .get('page', {
+      .get('development', {
         cachebust: true,
         userAttributes: {
-          urlPath: '/' + (params?.page?.join('/') || ''),
-        },
-        query: {
-          data: {
-            environment: 'development',
-          }
+          urlPath: '/locales-demo', //'/' + (params?.page?.join('/') || ''),
         },
       })
       .toPromise()) || null
@@ -49,7 +45,7 @@ export async function getStaticProps({
 
 // returns a list
 export async function getStaticPaths() {
-  const pages = await builder.getAll('page', {
+  const pages = await builder.getAll('development', {
     options: { noTargeting: true },
     omit: 'data.blocks',
   })
@@ -87,7 +83,8 @@ export default function Page({
         <meta name="viewport" content="width=device-width, initial-scale=1" />
       </Head>
 
-      <BuilderComponent model="page" content={page} />
+      <BuilderComponent model="development" content={page}/>
+      {/* <BuilderComponent model="development" content={page} context={{locale: 'en-US'}}/> */}
     </>
   )
 }
