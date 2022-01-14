@@ -9,10 +9,10 @@ import "../components/Heading";
 const BUILDER_API_KEY = '492b9fb8f843430fba67137f1f8ec68d'
 builder.init(BUILDER_API_KEY)
 
-Builder.set({ 
-  customInsertMenu: true,
-  hideABTab: true, 
-})
+// Builder.set({ 
+//   customInsertMenu: true,
+//   hideABTab: true, 
+// })
 Builder.register('insertMenu', {
   name: 'Custom Components',
   items: [
@@ -48,10 +48,23 @@ export async function getStaticProps({
 
 // returns a list
 export async function getStaticPaths() {
+
+  const tags = ['cms', '123abc']
+  // querying does not work for a pure integer like 123
+  // works ok if tag name is alphanumeric (123abc or abc123)
   const pages = await builder.getAll('page', {
     options: { noTargeting: true },
     omit: 'data.blocks',
+    query: {
+      data: {
+        tags: {
+          $in: tags,
+        }
+      }
+    }
   })
+
+  console.log(pages.map((page) => `${page.data?.url}`))
 
   return {
     paths: pages.map((page) => `${page.data?.url}`),
