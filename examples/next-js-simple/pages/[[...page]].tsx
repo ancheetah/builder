@@ -3,23 +3,9 @@ import { useRouter } from 'next/router'
 import { BuilderComponent, Builder, builder } from '@builder.io/react'
 import DefaultErrorPage from 'next/error'
 import Head from 'next/head'
-import "../components/SvgComponent";
-import "../components/Heading";
 
-const BUILDER_API_KEY = '492b9fb8f843430fba67137f1f8ec68d'
+const BUILDER_API_KEY = '7b4055a278364bbdabb9ddab0ad72c16'
 builder.init(BUILDER_API_KEY)
-
-// Builder.set({ 
-//   customInsertMenu: true,
-//   hideABTab: true, 
-// })
-Builder.register('insertMenu', {
-  name: 'Custom Components',
-  items: [
-    { name: 'Heading' },
-    { name: 'Custom SVG' }
-  ],
-})
 
 // tells you what paths are being built
 export async function getStaticProps({
@@ -49,9 +35,9 @@ export async function getStaticProps({
 // returns a list
 export async function getStaticPaths() {
 
-  const tags = ['cms', '123abc']
-  // querying does not work for a pure integer like 123
-  // works ok if tag name is alphanumeric (123abc or abc123)
+  const tags = ['cms', '123abc', '123', 123]
+  // querying does not work for a numeric tag like '123'
+  // works ok if tag name is alphanumeric ('123abc' or 'abc123')
   const pages = await builder.getAll('page', {
     options: { noTargeting: true },
     omit: 'data.blocks',

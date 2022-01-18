@@ -34,7 +34,15 @@ function App() {
           <Route path="/" exact component={Home} />
           <Route path="/about" exact component={About} />
           <Route
-            render={({ location }) => <CatchallPage key={location.key} />}
+            render={({ location }) => {
+              console.log('location: ', location);
+              return (
+                <CatchallPage 
+                  key={location.key} 
+                  url={location.pathname}
+                />
+              )
+            }}
           />
         </Switch>
       </div>
@@ -42,7 +50,7 @@ function App() {
   );
 }
 
-export const CatchallPage = ({ page = "page", url = "home" }) => {
+export const CatchallPage = ({ pageModel = "page", url = "home" }) => {
   const [pageJSON, setPage] = useState(null);
   const [loading, setLoading] = useState(false);
   const isEditingOrPreviewing = Builder.isEditing || Builder.isPreviewing;
@@ -50,8 +58,21 @@ export const CatchallPage = ({ page = "page", url = "home" }) => {
   useEffect(() => {
     async function fetchPage() {
       setLoading(true);
+      const tags = ['cms', '123abc'];
       builder
-        .get(page, { url: "/" + url })
+        .get(pageModel, 
+          { 
+            url: "page-2",//"/" + url, 
+            options: { noTargeting: true },
+            query: {
+              data: {
+                tags: {
+                  $in: tags,
+                }
+              }
+            }
+          }
+        )
         .promise()
         .then(setPage);
 
@@ -68,7 +89,7 @@ export const CatchallPage = ({ page = "page", url = "home" }) => {
   if (!pageJSON && !isEditingOrPreviewing) {
     return <NotFound />;
   }
-  return <BuilderComponent model="page" content={pageJSON} />;
+  return <BuilderComponent model={pageModel} content={pageJSON} />;
 };
 
 const Heading = (props) => <h1>{props.title}</h1>;
