@@ -21,16 +21,19 @@ Builder.register('insertMenu', {
 export async function getStaticProps({
   params,
 }: GetStaticPropsContext<{ page: string[] }>) {
-  // builder.setUserAttributes({ locale: 'en-US'});
+  builder.setUserAttributes({ locale: 'en-CA'});
   const page =
     (await builder
       .get('development', {
         cachebust: true,
-        userAttributes: {
-          urlPath: '/locales-demo', //'/' + (params?.page?.join('/') || ''),
-        },
+        url: '/locales-demo',
+        // userAttributes: {
+        //   urlPath: '/locales-demo', //'/' + (params?.page?.join('/') || ''),
+        // },
       })
       .toPromise()) || null
+
+    console.log('page ', page);
 
   return {
     props: {
@@ -49,6 +52,7 @@ export async function getStaticPaths() {
     options: { noTargeting: true },
     omit: 'data.blocks',
   })
+  console.log(pages.map((page) => `${page.data?.url}`))
 
   return {
     paths: pages.map((page) => `${page.data?.url}`),
