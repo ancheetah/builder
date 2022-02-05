@@ -5,6 +5,7 @@ import DefaultErrorPage from 'next/error'
 import Head from 'next/head'
 import "../components/SvgComponent";
 import "../components/Heading";
+import "../components/cloudinary";
 
 const BUILDER_API_KEY = '79c606108cdf4936815f4736565ac6ee'
 builder.init(BUILDER_API_KEY)
@@ -13,7 +14,8 @@ Builder.register('insertMenu', {
   name: 'Custom Components',
   items: [
     { name: 'Heading' },
-    { name: 'Custom SVG' }
+    { name: 'Custom SVG' },
+    { name: 'CloudinaryImage' }
   ],
 })
 
