@@ -13,7 +13,7 @@ export async function getStaticProps({
 }: GetStaticPropsContext<{ page: string[] }>) {
   const page =
     (await builder
-      .get('page', {
+      .get('static-pages', {
         userAttributes: {
           urlPath: '/' + (params?.page?.join('/') || ''),
         },
@@ -32,11 +32,11 @@ export async function getStaticProps({
 }
 
 export async function getStaticPaths() {
-  const pages = await builder.getAll('page', {
+  const pages = await builder.getAll('static-pages', {
     options: { noTargeting: true },
     omit: 'data.blocks',
   })
-
+  // console.log(pages.map((page) => `${page.data?.url}`));
   return {
     paths: pages.map((page) => `${page.data?.url}`),
     fallback: true,
