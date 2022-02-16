@@ -21,57 +21,63 @@ Builder.register('insertMenu', {
 export async function getStaticProps({
   params,
 }: GetStaticPropsContext<{ page: string[] }>) {
-  builder.setUserAttributes({ locale: 'en-CA'});
   const page =
-    (await builder
-      .get('development', {
-        cachebust: true,
-        url: '/locales-demo',
-        // userAttributes: {
-        //   urlPath: '/locales-demo', //'/' + (params?.page?.join('/') || ''),
-        // },
-      })
-      .toPromise()) || null
-
-    console.log('page ', page);
-
-  return {
-    props: {
-      page,
-    },
-    // Next.js will attempt to re-generate the page:
-    // - When a request comes in
-    // - At most once every 5 seconds
-    revalidate: 5,
+  (await builder
+    .get('development', {
+      cachebust: true,
+      url: '/' + (params?.page?.join('/') || ''), //'/locales-demo',
+      // userAttributes: {
+      //   urlPath: '/' + (params?.page?.join('/') || ''),
+      // },
+    })
+    .toPromise()) || null
+    
+    console.log('url ', params);
+    
+    return {
+      props: {
+        page,
+      },
+      // Next.js will attempt to re-generate the page:
+      // - When a request comes in
+      // - At most once every 5 seconds
+      revalidate: 5,
+    }
   }
-}
-
-// returns a list
-export async function getStaticPaths() {
-  const pages = await builder.getAll('development', {
-    options: { noTargeting: true },
-    omit: 'data.blocks',
-  })
-  console.log(pages.map((page) => `${page.data?.url}`))
-
-  return {
-    paths: pages.map((page) => `${page.data?.url}`),
-    fallback: true,
+  
+  // returns a list
+  export async function getStaticPaths() {
+    const pages = await builder.getAll('development', {
+      options: { noTargeting: true },
+      omit: 'data.blocks',
+    })
+    console.log('PATHS: ', pages.map((page) => `${page.data?.url}`))
+    
+    return {
+      paths: pages.map((page) => `${page.data?.url}`),
+      fallback: true,
+    }
   }
-}
-
-// React Component
-export default function Page({
-  page,
-}: InferGetStaticPropsType<typeof getStaticProps>) {
-  const router = useRouter()
-  if (router.isFallback) {
-    return <h1>Loading...</h1>
-  }
-  const isLive = !Builder.isEditing && !Builder.isPreviewing
-  if (!page && isLive) {
-    return (
-      <>
+  
+  // React Component
+  export default function Page({
+    page,
+  }: InferGetStaticPropsType<typeof getStaticProps>) {
+    // Use the content API to inspect how custom targeting attributes are formatted/encoded
+    // https://cdn.builder.io/api/v2/content/development?apiKey=79c606108cdf4936815f4736565ac6ee&limit=10
+    builder.setUserAttributes({ 
+      codeTarget: "console.log(\"Hello World!\");",
+      tagTarget: 'react',
+      locale: 'en-CA',
+    });
+    const router = useRouter()
+    if (router.isFallback) {
+      return <h1>Loading...</h1>
+    }
+    const isLive = !Builder.isEditing && !Builder.isPreviewing
+    if (!page && isLive) {
+      return (
+        <>
         <Head>
           <meta name="robots" content="noindex" />
           <meta name="title"></meta>
@@ -80,7 +86,7 @@ export default function Page({
       </>
     )
   }
-
+  
   return (
     <>
       <Head>
