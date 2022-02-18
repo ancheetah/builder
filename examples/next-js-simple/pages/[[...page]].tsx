@@ -36,7 +36,7 @@ export async function getStaticPaths() {
     options: { noTargeting: true },
     omit: 'data.blocks',
   })
-  // console.log(pages.map((page) => `${page.data?.url}`));
+  console.log(pages.map((page) => `${page.data?.url}`));
   return {
     paths: pages.map((page) => `${page.data?.url}`),
     fallback: true,
