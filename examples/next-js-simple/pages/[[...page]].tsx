@@ -5,6 +5,7 @@ import DefaultErrorPage from 'next/error'
 import Head from 'next/head'
 import builderConfig from '@config/builder'
 import '@builder.io/widgets'
+import { Link } from '../components/Link/Link';
 
 builder.init(builderConfig.apiKey)
 
@@ -62,14 +63,13 @@ export default function Page({
       </>
     )
   }
-
   return (
     <>
       <Head>
         <meta name="viewport" content="width=device-width, initial-scale=1" />
       </Head>
 
-      <BuilderComponent model="page" content={page} />
+      <BuilderComponent model="page" content={page} renderLink={ Link }/>
     </>
   )
 }
