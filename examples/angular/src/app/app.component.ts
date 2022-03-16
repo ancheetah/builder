@@ -1,8 +1,7 @@
 import { BuilderBlock } from '@builder.io/angular';
 import { Component, Input } from '@angular/core';
-import { GetContentOptions } from '@builder.io/sdk';
 import { HttpClient } from '@angular/common/http';
-import { analyzeAndValidateNgModules } from '@angular/compiler';
+import { map } from 'rxjs/operators';
 
 @Component({
   selector: 'custom-thing',
@@ -38,7 +37,8 @@ export class AppComponent {
     }
   };
 
-  constructor(httpClient: HttpClient) {};
+  public page: any;
+  constructor(private httpClient: HttpClient) {};
 
   data = {
     property: 'hello',
@@ -46,16 +46,21 @@ export class AppComponent {
   };
 
   ngOnInit() {
-
+    console.log('in ngOnInit');
     // fetch from HTML API
-    this.httpClient
-      .get('https://cdn.builder.io/api/v1/html/page?apiKey=c8c2ea5f476a464ab3f9f1f3f9c83a2a&url=/en/html-api-test-component')
-      .pipe(map<any, any>((response: any) => response));
-    
-    this.page = response.data.html
-
-    // in a test builder space, create a page and use the Custom Thing component
-    // if Custom Thing renders then this is on them
+    const res = this.httpClient
+      // .get('https://cdn.builder.io/api/v1/html/page?apiKey=c8c2ea5f476a464ab3f9f1f3f9c83a2a&url=/en/html-api-test-component')
+      .get('https://cdn.builder.io/api/v1/html/page?apiKey=ed8a0d0382464254a04cf7962cf218ca&url=/about')
+      .pipe(map<any, any>((response: any) => {
+        console.log("response = ", response);
+        this.page = response.data.html
+      }))
+      .subscribe(d => {
+        console.log("d = ", d)
+        // this.page = d.data.html
+      });
+      
+      console.log("res = ", res)
   }
 
   load(event: any) {
