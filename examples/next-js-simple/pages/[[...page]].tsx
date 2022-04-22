@@ -69,7 +69,18 @@ export default function Page({
         <meta name="viewport" content="width=device-width, initial-scale=1" />
       </Head>
 
+      <button 
+        type="button" 
+        onClick={() => {
+          builder.track('buttonClick')
+          console.log('button clicked!')
+        }}
+      >
+        Click Me!
+      </button>
+
       <BuilderComponent model="page" content={page} />
+      
     </>
   )
 }
