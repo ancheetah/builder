@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+// could be header or footer
 
 @Component({
   selector: 'foo',
