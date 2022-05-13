@@ -2,7 +2,6 @@ import { Builder, BuilderContent } from "@builder.io/react";
 import React from 'react';
 
 export const Heading = (props: { image: string; title: string; }) => {
-console.log(props.image);
   return(
     <div style={{'width': '50vw'}}>
       <h1>{props.title}</h1>

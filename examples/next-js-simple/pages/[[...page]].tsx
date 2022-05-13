@@ -3,7 +3,6 @@ import { useRouter } from 'next/router'
 import { BuilderComponent, Builder, builder } from '@builder.io/react'
 import DefaultErrorPage from 'next/error'
 import Head from 'next/head'
-import "../components/SvgComponent";
 import "../components/Heading";
 
 const BUILDER_API_KEY = '79c606108cdf4936815f4736565ac6ee'
@@ -13,7 +12,6 @@ Builder.register('insertMenu', {
   name: 'Custom Components',
   items: [
     { name: 'Heading' },
-    { name: 'Custom SVG' }
   ],
 })
 
@@ -27,13 +25,9 @@ export async function getStaticProps({
       .get('development', {
         cachebust: true,
         url: '/locales-demo',
-        // userAttributes: {
-        //   urlPath: '/locales-demo', //'/' + (params?.page?.join('/') || ''),
-        // },
       })
       .toPromise()) || null
 
-    console.log('page ', page);
 
   return {
     props: {
@@ -52,7 +46,6 @@ export async function getStaticPaths() {
     options: { noTargeting: true },
     omit: 'data.blocks',
   })
-  console.log(pages.map((page) => `${page.data?.url}`))
 
   return {
     paths: pages.map((page) => `${page.data?.url}`),
@@ -87,8 +80,7 @@ export default function Page({
         <meta name="viewport" content="width=device-width, initial-scale=1" />
       </Head>
 
-      <BuilderComponent model="development" content={page}/>
-      {/* <BuilderComponent model="development" content={page} context={{locale: 'en-US'}}/> */}
+      <BuilderComponent model="development" content={page} context={{locale: 'en-US'}}/>
     </>
   )
 }
