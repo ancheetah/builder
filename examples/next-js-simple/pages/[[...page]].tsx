@@ -4,6 +4,7 @@ import { BuilderComponent, Builder, builder } from '@builder.io/react'
 import DefaultErrorPage from 'next/error'
 import Head from 'next/head'
 import "../components/Heading";
+import "../components/Heading_RTE"
 
 const BUILDER_API_KEY = '79c606108cdf4936815f4736565ac6ee'
 builder.init(BUILDER_API_KEY)
@@ -12,6 +13,7 @@ Builder.register('insertMenu', {
   name: 'Custom Components',
   items: [
     { name: 'Heading' },
+    { name: 'Heading RTE' },
   ],
 })
 
@@ -24,7 +26,7 @@ export async function getStaticProps({
     (await builder
       .get('development', {
         cachebust: true,
-        url: '/locales-demo',
+        url: '/' + (params?.page?.join('/') || ''),
       })
       .toPromise()) || null
 
@@ -80,7 +82,8 @@ export default function Page({
         <meta name="viewport" content="width=device-width, initial-scale=1" />
       </Head>
 
-      <BuilderComponent model="development" content={page} context={{locale: 'en-US'}}/>
+      {/* <BuilderComponent model="development" content={page} context={{locale: 'en-US'}}/> */}
+      <BuilderComponent model="development" content={page} />
     </>
   )
 }
