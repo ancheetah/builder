@@ -9,7 +9,13 @@ import { BuilderBlock } from '@builder.io/angular';
 export class MyButtonComponent implements OnInit {
 
   @Input()
-  name = 'default';
+  name = 'default name';
+
+  @Input()
+  telNumber = '1234567890';
+  
+  @Input()
+  email = 'default@example.com';
 
   ngOnInit(): void {
   }
@@ -24,5 +30,13 @@ BuilderBlock({
       name: 'name',
       type: 'string',
     },
+    {
+      name: 'telNumber',
+      type: 'string',
+    },
+    {
+      name: 'email',
+      type: 'string',
+    }
   ],
 })(MyButtonComponent);
