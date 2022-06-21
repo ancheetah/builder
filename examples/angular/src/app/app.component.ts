@@ -1,5 +1,6 @@
 import { BuilderBlock } from '@builder.io/angular';
-import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
+import { Component, Input, OnChanges, SimpleChanges, NgZone } from '@angular/core';
+import { Router } from '@angular/router';
 import { GetContentOptions } from '@builder.io/sdk';
 
 @Component({
@@ -12,6 +13,7 @@ import { GetContentOptions } from '@builder.io/sdk';
   `,
 })
 export class CustomThing implements OnChanges {
+  
   @Input()
   name = '';
 
@@ -130,6 +132,11 @@ BuilderBlock({
   styleUrls: ['./app.component.css'],
 })
 export class AppComponent {
+  constructor(
+    private ngZone: NgZone,
+    private _router: Router,
+  ){}
+
   title = 'app';
   options: any = {
     cacheSeconds: 1,
@@ -142,6 +149,15 @@ export class AppComponent {
     property: 'hello',
     myFunction: (text: string) => alert(text),
   };
+
+  context = {
+    myContextFunction: (text: string) => alert(text),
+    navigate: (nextPage: string) => {
+      this.ngZone.run(() => {
+        this._router.navigateByUrl(nextPage);
+     });
+   }
+  }
 
   load(event: any) {
     console.log('load', event);
