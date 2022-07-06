@@ -1,12 +1,64 @@
 import type { GetStaticPropsContext, InferGetStaticPropsType } from 'next'
 import { useRouter } from 'next/router'
-import { BuilderComponent, builder, useIsPreviewing } from '@builder.io/react'
+import { BuilderComponent, builder, Builder, useIsPreviewing } from '@builder.io/react'
 import DefaultErrorPage from 'next/error'
 import Head from 'next/head'
 import builderConfig from '@config/builder'
 import '@builder.io/widgets'
+import {MenuComponent} from '../components/MenuComponent'
 
 builder.init(builderConfig.apiKey)
+
+Builder.registerComponent (MenuComponent, {
+  name: 'Menu',
+  inputs: [
+    {
+      name: 'title',
+      type: 'text'
+    }
+  ]
+})
+
+// Builder.registerComponent( MenuComponent, {
+//   name: "Menu",
+//   inputs: [
+//     {
+//       name: "menuItems",
+//       type: "list",
+//       helperText: "Main Navigation Menu Items",
+//       subFields: [
+//         // {
+//         //   name: 'blocks',
+//         //   type: 'blocks',
+//         //   hideFromUI: true,
+//         //   helperText: 'This is an editable region where you can drag and drop blocks.',
+//         //   defaultValue: [
+//         //     {
+//         //       '@type': '@builder.io/sdk:Element',
+//         //       component: {
+//         //         name: 'Text',
+//         //         options: {
+//         //           text: 'Enter some text...',
+//         //         },
+//         //       },
+//         //     },
+//         //   ],
+//         // },
+//         {
+//           name: "navigationTitle",
+//           type: "string",
+//           required: true,
+//           helperText: "Main Navigation Title",
+//         },
+//         {
+//           name: "navigationLink",
+//           type: "url",
+//           helperText: "Main Navigation Title URL",
+//         }
+//       ],
+//     },
+//   ],
+// });
 
 export async function getStaticProps({
   params,
