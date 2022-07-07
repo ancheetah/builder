@@ -9,39 +9,6 @@ import {MenuComponent} from '../components/MenuComponent'
 
 builder.init(builderConfig.apiKey)
 
-// Builder.registerComponent (MenuComponent, {
-//   name: 'Menu',
-//   inputs: [
-//     {
-//       name: 'reviews',
-//       type: 'list',
-//       defaultValue: [ 
-//             { reviewText: 'hello' 
-//      }],
-//       subFields: [
-// 	{
-//           name: 'reviewText',
-//           type: 'string',
-//           defaultValue: '"You are the best"',
-//         },
-//         {
-//           name: 'reviewAuthor',
-//           type: 'string',
-//           defaultValue: 'Jane Smith',
-//         },
-//         {
-//           name: 'image',
-//           type: 'file',
-//           allowedFileTypes: ['jpeg', 'jpg', 'png', 'svg'],
-//           required: true,
-//           defaultValue:
-//          'https://cdn.builder.io/api/v1/image/assets%2Fpwgjf0RoYWbdnJSbpBAjXNRMe9F2%2Ffb27a7c790324294af8be1c35fe30f4d',
-//         },
-//       ],
-//     }
-//   ]
-// })
-
 Builder.registerComponent( MenuComponent, {
   name: "Menu",
   inputs: [
@@ -59,17 +26,6 @@ Builder.registerComponent( MenuComponent, {
           type: 'blocks',
           hideFromUI: true,
           helperText: 'This is an editable region where you can drag and drop blocks.',
-          // defaultValue: [
-          //   {
-          //     '@type': '@builder.io/sdk:Element',
-          //     component: {
-          //       name: 'Text',
-          //       options: {
-          //         text: 'Enter some text...',
-          //       },
-          //     },
-          //   },
-          // ],
         },
         {
           name: "navigationTitle",

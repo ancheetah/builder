@@ -1,18 +1,12 @@
 import {BuilderBlocks} from '@builder.io/react'
 import React from 'react';
 
-export const MenuComponent = (props) => {
-  console.log('props = ', props.menuItems);
-  // const menuItems = props.menuItems;
-
-  // return props.menuItems.map( item => <h1>{item.navigationTitle}</h1>)  
-
-  // return props.reviews.map(review => <h1>{review.reviewText}</h1>);
+export const MenuComponent = (props) => { // needs props for parent element ID
 
     return <div className="my-blocks">
   
       {props.menuItems.map((menuItem, index) => {
-        console.log(props.builderBlock.id) //, props.menuItems.builderBlock.id)
+        // console.log(props.builderBlock.id)
         return (
           <a
             key={index}
