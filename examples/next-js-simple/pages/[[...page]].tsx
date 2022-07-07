@@ -9,56 +9,80 @@ import {MenuComponent} from '../components/MenuComponent'
 
 builder.init(builderConfig.apiKey)
 
-Builder.registerComponent (MenuComponent, {
-  name: 'Menu',
-  inputs: [
-    {
-      name: 'title',
-      type: 'text'
-    }
-  ]
-})
-
-// Builder.registerComponent( MenuComponent, {
-//   name: "Menu",
+// Builder.registerComponent (MenuComponent, {
+//   name: 'Menu',
 //   inputs: [
 //     {
-//       name: "menuItems",
-//       type: "list",
-//       helperText: "Main Navigation Menu Items",
+//       name: 'reviews',
+//       type: 'list',
+//       defaultValue: [ 
+//             { reviewText: 'hello' 
+//      }],
 //       subFields: [
-//         // {
-//         //   name: 'blocks',
-//         //   type: 'blocks',
-//         //   hideFromUI: true,
-//         //   helperText: 'This is an editable region where you can drag and drop blocks.',
-//         //   defaultValue: [
-//         //     {
-//         //       '@type': '@builder.io/sdk:Element',
-//         //       component: {
-//         //         name: 'Text',
-//         //         options: {
-//         //           text: 'Enter some text...',
-//         //         },
-//         //       },
-//         //     },
-//         //   ],
-//         // },
-//         {
-//           name: "navigationTitle",
-//           type: "string",
-//           required: true,
-//           helperText: "Main Navigation Title",
+// 	{
+//           name: 'reviewText',
+//           type: 'string',
+//           defaultValue: '"You are the best"',
 //         },
 //         {
-//           name: "navigationLink",
-//           type: "url",
-//           helperText: "Main Navigation Title URL",
-//         }
+//           name: 'reviewAuthor',
+//           type: 'string',
+//           defaultValue: 'Jane Smith',
+//         },
+//         {
+//           name: 'image',
+//           type: 'file',
+//           allowedFileTypes: ['jpeg', 'jpg', 'png', 'svg'],
+//           required: true,
+//           defaultValue:
+//          'https://cdn.builder.io/api/v1/image/assets%2Fpwgjf0RoYWbdnJSbpBAjXNRMe9F2%2Ffb27a7c790324294af8be1c35fe30f4d',
+//         },
 //       ],
-//     },
-//   ],
-// });
+//     }
+//   ]
+// })
+
+Builder.registerComponent( MenuComponent, {
+  name: "Menu",
+  inputs: [
+    {
+      name: "menuItems",
+      type: "list",
+      helperText: "Main Navigation Menu Items",
+      defaultValue: [{ navigationTitle: 'Navigation Title' }],
+      subFields: [
+        // {
+        //   name: 'blocks',
+        //   type: 'blocks',
+        //   hideFromUI: true,
+        //   helperText: 'This is an editable region where you can drag and drop blocks.',
+        //   defaultValue: [
+        //     {
+        //       '@type': '@builder.io/sdk:Element',
+        //       component: {
+        //         name: 'Text',
+        //         options: {
+        //           text: 'Enter some text...',
+        //         },
+        //       },
+        //     },
+        //   ],
+        // },
+        {
+          name: "navigationTitle",
+          type: "string",
+          required: true,
+          helperText: "Main Navigation Title",
+        },
+        {
+          name: "navigationLink",
+          type: "url",
+          helperText: "Main Navigation Title URL",
+        }
+      ],
+    },
+  ],
+});
 
 export async function getStaticProps({
   params,
