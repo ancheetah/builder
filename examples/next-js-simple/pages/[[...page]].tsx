@@ -49,25 +49,36 @@ Builder.registerComponent( MenuComponent, {
       name: "menuItems",
       type: "list",
       helperText: "Main Navigation Menu Items",
-      defaultValue: [{ navigationTitle: 'Navigation Title' }],
+      defaultValue: [{ 
+        navigationTitle: 'Navigation Title',
+        blocks: [{
+          '@type': '@builder.io/sdk:Element',
+          component: {
+            name: 'Text',
+            options: {
+              text: 'Enter some text...',
+            },
+          },
+        }] 
+      }],
       subFields: [
-        // {
-        //   name: 'blocks',
-        //   type: 'blocks',
-        //   hideFromUI: true,
-        //   helperText: 'This is an editable region where you can drag and drop blocks.',
-        //   defaultValue: [
-        //     {
-        //       '@type': '@builder.io/sdk:Element',
-        //       component: {
-        //         name: 'Text',
-        //         options: {
-        //           text: 'Enter some text...',
-        //         },
-        //       },
-        //     },
-        //   ],
-        // },
+        {
+          name: 'blocks',
+          type: 'blocks',
+          hideFromUI: true,
+          helperText: 'This is an editable region where you can drag and drop blocks.',
+          // defaultValue: [
+          //   {
+          //     '@type': '@builder.io/sdk:Element',
+          //     component: {
+          //       name: 'Text',
+          //       options: {
+          //         text: 'Enter some text...',
+          //       },
+          //     },
+          //   },
+          // ],
+        },
         {
           name: "navigationTitle",
           type: "string",

@@ -12,6 +12,7 @@ export const MenuComponent = (props) => {
     return <div className="my-blocks">
   
       {props.menuItems.map((menuItem, index) => {
+        console.log(props.menuItems.builderBlock, menuItem.blocks) //, props.menuItems.builderBlock.id)
         return (
           <a
             key={index}
@@ -19,13 +20,13 @@ export const MenuComponent = (props) => {
             id={menuItem?.navigationTitle}
           >
             {menuItem.navigationTitle}
-            {/* <BuilderBlocks
-            key={index}
-            child
-            parentElementId={menuItems.builderBlock && menuItems.builderBlock.id}
-            blocks={menuItem.blocks}
-            dataPath={`component.options.menuItems.${index}.blocks`}
-            /> */}
+            <BuilderBlocks
+              key={index}
+              child
+              parentElementId={props.menuItems.builderBlock && props.menuItems.builderBlock.id}
+              blocks={menuItem.blocks}
+              dataPath={`component.options.menuItems.${index}.blocks`}
+            />
           </a>
         );
       })}
