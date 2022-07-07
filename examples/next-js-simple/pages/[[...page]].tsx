@@ -51,15 +51,7 @@ Builder.registerComponent( MenuComponent, {
       helperText: "Main Navigation Menu Items",
       defaultValue: [{ 
         navigationTitle: 'Navigation Title',
-        blocks: [{
-          '@type': '@builder.io/sdk:Element',
-          component: {
-            name: 'Text',
-            options: {
-              text: 'Enter some text...',
-            },
-          },
-        }] 
+        blocks: [] 
       }],
       subFields: [
         {
