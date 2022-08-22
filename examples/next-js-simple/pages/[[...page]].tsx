@@ -21,7 +21,7 @@ export async function getStaticProps({
       })
       .toPromise()) || null
 
-      console.log("page = ", JSON.stringify(page.data.blocks))
+      // console.log("page = ", JSON.stringify(page.data.blocks))
 
   return {
     props: {
@@ -68,6 +68,7 @@ export default function Page({
       ) : (
         <BuilderComponent model="page" content={page} />
       )}
+      {console.log(page)}
     </>
   )
 }
