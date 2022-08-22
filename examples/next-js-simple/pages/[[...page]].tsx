@@ -21,6 +21,8 @@ export async function getStaticProps({
       })
       .toPromise()) || null
 
+      console.log("page = ", JSON.stringify(page.data.blocks))
+
   return {
     props: {
       page,
