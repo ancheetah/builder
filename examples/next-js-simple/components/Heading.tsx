@@ -1,6 +1,6 @@
 import { Builder } from "@builder.io/react";
 import React from 'react';
-export const Heading = (props: { title: Object; }) => {
+export const Heading = (props: { title: string; }) => {
   console.log(props.title);
   // --> returns a localized object:
   // {
@@ -13,7 +13,7 @@ export const Heading = (props: { title: Object; }) => {
   const locale = 'en-US';
   return(
     <div style={{'width': '50vw'}}>
-      <h1>{props.title.[locale]}</h1>
+      <h1>{props.title}</h1>
     </div>
   )
 }
@@ -26,11 +26,6 @@ Builder.registerComponent(Heading, {
       name: "title",
       type: "text", 
       defaultValue: 'I am a heading!'
-    },
-    {
-      name: "image",
-      type: "file",
-      allowedFileTypes: ['png', 'jpeg']
     },
   ],
 });

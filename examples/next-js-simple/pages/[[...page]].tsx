@@ -13,18 +13,21 @@ import "../components/Heading";
 builder.init(builderConfig.apiKey)
 
 Builder.register('insertMenu', {
-  name: 'Custom Components',
+  name: 'My Components',
   items: [
     { name: 'Heading' },
   ],
 })
+
+const locale = 'en-US'
 
 export async function getStaticProps({
   params,
 }: GetStaticPropsContext<{ page: string[] }>) {
   const page =
     (await builder
-      .get('page', {
+      .get('development', {
+        options: { locale },
         userAttributes: {
           urlPath: '/' + (params?.page?.join('/') || ''),
         },
@@ -43,7 +46,7 @@ export async function getStaticProps({
 }
 
 export async function getStaticPaths() {
-  const pages = await builder.getAll('page', {
+  const pages = await builder.getAll('development', {
     options: { noTargeting: true },
     omit: 'data.blocks',
   })
@@ -74,7 +77,7 @@ export default function Page({
       {show404 ? (
         <DefaultErrorPage statusCode={404} />
       ) : (
-        <BuilderComponent model="page" content={page} />
+        <BuilderComponent model="development" content={page} locale={locale} />
       )}
     </>
   )
