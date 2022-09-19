@@ -1,20 +1,12 @@
 import { Builder } from "@builder.io/react";
 import React from 'react';
-export const Heading = (props: { title: string; }) => {
-  console.log(props.title);
-  // --> returns a localized object:
-  // {
-  //   Default: "Default Heading"
-  //   en-CA: "CA Heading"
-  //   en-UK: "UK Heading"
-  //   en-US: "US Heading"
-  // }
-
-  const locale = 'en-US';
+export const Heading = (props: { title: string; icon: string; }) => {
+  console.log(JSON.stringify(props.icon));
   return(
-    <div style={{'width': '50vw'}}>
-      <h1>{props.title}</h1>
-    </div>
+    <span style={{display: "flex", alignItems: "center"}}>
+      <img src={props.icon} width="50" height="50"/>
+      <h1 style={{padding: '0.5em'}}>{props.title}</h1>
+    </span>
   )
 }
 
@@ -22,10 +14,16 @@ Builder.registerComponent(Heading, {
   name: "Heading",
   inputs: [
     {
-      localized: true,
       name: "title",
       type: "text", 
-      defaultValue: 'I am a heading!'
+      defaultValue: 'I am a heading!',
+      localized: true,
     },
+    {
+      name: "icon",
+      type: "file",
+      defaultValue: 'https://cdn.builder.io/api/v1/image/assets%2F89d6bbb44070475d9580fd22f21ef8f1%2F1ab2f86b7c5447ad9b99cb039165c15e?width=799',
+      localized: true,
+    }
   ],
 });
