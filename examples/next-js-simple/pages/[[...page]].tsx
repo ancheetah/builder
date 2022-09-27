@@ -21,11 +21,32 @@ Builder.registerComponent(
     override: true,
     noWrap: true,
     inputs: [
-      { 
-        name: 'image', 
-        type: 'file',      
-        defaultValue: 'https://cdn.builder.io/api/v1/image/assets%2F89d6bbb44070475d9580fd22f21ef8f1%2F1ab2f86b7c5447ad9b99cb039165c15e?width=799',
-      },
+      {
+        friendlyName: 'Image',
+        name: 'source',
+        type: 'file',
+        helperText: 'Select the image to display.',
+        allowedFileTypes: ['jpeg', 'png', 'svg'],
+    },
+    {
+        friendlyName: 'Alternative text',
+        name: 'alt',
+        type: 'string',
+        helperText: 'Alternative text attribute for image',
+    },
+    {
+        friendlyName: 'Aspect Ratio',
+        name: 'aspectRatio',
+        type: 'string',
+        helperText: 'Image ratio expressed as width/height: insert only valid values and follow the pattern.',
+        defaultValue: '16/9',
+        regex: {
+            // eslint-disable-next-line no-useless-escape
+            pattern: '^[1-9][0-9]*\/[1-9][0-9]*$', // prettier-ignore
+            options: 'i',
+            message: 'Invalid value: please follow the pattern number/number',
+        },
+    },
     ],
 })
 
