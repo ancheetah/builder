@@ -27,6 +27,7 @@ Builder.registerComponent(
         type: 'file',
         helperText: 'Select the image to display.',
         allowedFileTypes: ['jpeg', 'png', 'svg'],
+        defaultValue: 'https://cdn.builder.io/api/v1/image/assets%2F79c606108cdf4936815f4736565ac6ee%2F6f0280173e8e4a3aaba792ac09015d2b'
     },
     {
         friendlyName: 'Alternative text',
