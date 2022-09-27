@@ -4,18 +4,18 @@ import { BuilderComponent, builder, Builder, useIsPreviewing } from '@builder.io
 import DefaultErrorPage from 'next/error'
 import Head from 'next/head'
 import builderConfig from '@config/builder'
-// import dynamic from 'next/dynamic'
+import dynamic from 'next/dynamic'
 // loading widgets dynamically to reduce bundle size, will only be included in bundle when is used in the content
 import '@builder.io/widgets/dist/lib/builder-widgets-async'
 
-import Image from "../components/Image"
+// import Image from "../components/Image"
 import "../components/Heading"
 
 // const BUILDER_API_KEY = '79c606108cdf4936815f4736565ac6ee'
 builder.init(builderConfig.apiKey)
 Builder.registerComponent(
-  // dynamic(() => import('../components/Image')), 
-  Image,
+  dynamic(() => import('../components/Image')), 
+  // Image,
   {
     name: 'Image',
     override: true,
