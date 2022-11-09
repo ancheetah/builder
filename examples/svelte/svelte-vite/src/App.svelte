@@ -1,5 +1,6 @@
 <script>
   import Counter from './lib/Counter.svelte';
+  import Filters from './lib/Filters.svelte';
   import { getContent, isPreviewing, RenderContent } from '@builder.io/sdk-svelte';
 
   // Create an array of your custom components and their properties
@@ -19,10 +20,34 @@
           defaultValue: 0
         }
       ]
+    },
+    {
+      component: Filters,
+      name: 'Filters',
+      inputs: [
+        {
+          name: 'filters',
+          type: 'list',
+          defaultValue: [{ label: 'filter1' }, { label: 'filter2'}],
+          onChange: (options) => {
+            if (options.get('filters').length > 4) {
+              options.set('filters', options.get('filters').slice(0, 4))
+              alert('maximum items is 4, delete items to continue')
+            }
+          },
+          subFields: [
+            {
+              name: 'label',
+              type: 'text',
+              defaultValue: 'Default Text'
+            }
+          ]
+          }
+        ]
     }
   ];
   // TODO: enter your public API key
-  const BUILDER_PUBLIC_API_KEY = 'f1a790f8c3204b3b8c5c1795aeac4660'; // ggignore
+  const BUILDER_PUBLIC_API_KEY = '5bcff3ed11574285aa9ac648aa7b9d87'; // ggignore
 
   let content = undefined;
   let canShowContent = false;
