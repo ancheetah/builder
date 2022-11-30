@@ -1,9 +1,11 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { Switch, Route, BrowserRouter, Link } from 'react-router-dom';
-import { BuilderComponent } from '@builder.io/react';
-
+import { builder, BuilderComponent } from '@builder.io/react';
+import Test from './Container.jsx';
 import './index.css';
+
+builder.init('d6ace353ab30467a800672fad8b593a1')
 
 function App() {
   return (
@@ -20,8 +22,8 @@ function App() {
           <Link className="link" to="/page-1">
             Page 1
           </Link>
-          <Link className="link" to="/page-2">
-            Page 2
+          <Link className="link" to="/test">
+            Test
           </Link>
           <Link className="link" to="/404">
             404
@@ -32,6 +34,7 @@ function App() {
         <Switch>
           <Route path="/" exact component={Home} />
           <Route path="/about" exact component={About} />
+          <Route path="/test" exact component={TestPage} />
           <Route render={({ location }) => <CatchallPage key={location.key} />} />
         </Switch>
       </div>
@@ -45,7 +48,6 @@ class CatchallPage extends React.Component {
   render() {
     return !this.state.notFound ? (
       <BuilderComponent
-        apiKey="bb209db71e62412dbe0114bdae18fd15"
         model="page"
         contentLoaded={content => {
           if (!content) {
@@ -61,6 +63,14 @@ class CatchallPage extends React.Component {
   }
 }
 
+const TestPage = () => {
+  return (
+    <div>
+      <h1>I am the test page!</h1>
+      <Test/>
+    </div>
+  )
+};
 const Home = () => <h1>I am the homepage!</h1>;
 const About = () => <h1>I am the about page!</h1>;
 const NotFound = () => <h1>No page found for this URL, did you publish it?</h1>;
